@@ -1,0 +1,117 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package v01;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class Employee {
+    private String id;
+    private String name;
+    private double salary;
+    private double COE;
+
+    public Employee() {
+    }
+
+    public Employee(String id, String name, double salary, double COE) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.COE = COE;
+    }
+
+    public String getId() {
+        Scanner scanner = new Scanner(System.in);
+        String inputId;
+          while (true) {
+            try {
+                System.out.print("--Please enter id number: ");
+                inputId = scanner.nextLine();
+                setId(inputId);
+                break;
+            } catch (IDException e) {
+                System.out.println(e.getMessage()); }
+//            } catch (NumberFormatException e) {
+//                System.out.println("Invalid input. Volt must be a number.");
+//            }
+        }
+        return id;
+    }
+
+    public void setId(String id) throws IDException {
+        if (id.charAt(0) != 'N' || id.charAt(1) != 'V' || id.length() > 6) {
+            throw new IDException();
+        }
+        int temp = Integer.parseInt(id.substring(2));
+        if (temp < 1000 || temp > 9999) {
+            throw new IDException();
+        }
+        this.id = id;
+    }
+
+    public String getName() {
+        Scanner scanner = new Scanner(System.in);
+        String inputName;
+          while (true) {
+            try {
+                System.out.print("--Please enter name: ");
+                inputName = scanner.nextLine();
+                setName(inputName);
+                break;
+            } catch (EmptyException e1) {
+                System.out.println(e1.getMessage()); }
+          }
+        return name;
+    }
+
+    public void setName(String name) throws EmptyException {
+        if (name.length() == 0) {
+            throw new EmptyException();
+        }
+        this.name = name;
+    }
+
+    public double getSalary() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("--Please enter salary: ");
+        setSalary(scanner.nextInt());
+        while (salary < 100) {
+            System.out.println("--------Erorr! Please salary again (Salary > 100 USD):");
+            setSalary(scanner.nextInt());
+        }
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public double getCOE() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("--Please enter coefficients salary: ");
+        setCOE(scanner.nextDouble());
+        while (COE < 1 || COE >5) {
+            System.out.println("--------Erorr! Please coefficients salary again (From 1 to 5): ");
+            setCOE(scanner.nextDouble());
+        }
+        return COE;
+    }
+
+    public void setCOE(double COE) {
+        this.COE = COE;
+    }
+
+    public void input() {
+        getId();
+        getName();
+        getSalary();
+        getCOE();
+    }
+}
