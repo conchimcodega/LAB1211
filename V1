@@ -1,8 +1,72 @@
-Hello my name is Nhi
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package v01;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 
+/**
+ *
+ * @author ADMIN
+ */
+public class V01 {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        V01 fuckYou = new V01();
+        fuckYou.Menu();
+       
+    }
 
+    public void Menu() {
+        Scanner scanner = new Scanner(System.in);
+        V01 fuckYou = new V01();
+        int choice = 1;
+        while (choice != 0) {
+            System.out.println("----------MENU----------");
+            System.out.println("1. Input employee.");
+            System.out.println("2. Show líst employee.");
+            System.out.println("0. Exit.");
+            System.out.print("Please choose: ");
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+                switch (choice) {
+                    case 1:
+                        fuckYou.Add();
+                        break;
+                    case 2:
+                        Show();
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        System.out.println("Invalid choice. The function of the application must be from 0 to 2!");
+                        break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+        System.out.println("SEE YOU AGAIN!");
+    }
 
-
-
-HOLA TEST NÈ
+    public void Add() {
+        ArrayList<Employee> employees = new ArrayList();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("+Enter number of Employee: ");
+        int number;
+        number = scanner.nextInt();
+        for (int i = 0; i < number; i++) {
+            System.out.println("-Employee " + (i+1));
+            Employee employee = new Employee();
+            employee.input();
+            employees.add(employee);
+          //  System.out.println("Employe created and added to the list of toys successfully!");
+        }
+       
+    }
+}
