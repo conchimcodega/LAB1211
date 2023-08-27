@@ -12,6 +12,7 @@ import java.util.Scanner;
  * @author ADMIN
  */
 public class Employee {
+    Scanner scanner = new Scanner(System.in);
     private String id;
     private String name;
     private double salary;
@@ -28,90 +29,90 @@ public class Employee {
     }
 
     public String getId() {
-        Scanner scanner = new Scanner(System.in);
-        String inputId;
-          while (true) {
+        return id;
+    }
+
+    public void setId(String id) {
+            while (true) {
             try {
                 System.out.print("--Please enter id number: ");
-                inputId = scanner.nextLine();
-                setId(inputId);
+                id = scanner.nextLine();
+                this.id = id;
+                if (id.charAt(0) != 'N' || id.charAt(1) != 'V' || id.length() > 6) {
+                    throw new IDException();
+                }
+                int temp = Integer.parseInt(id.substring(2));
+                if (temp < 1000 || temp > 9999) {
+                    throw new IDException();
+                }
                 break;
             } catch (IDException e) {
-                System.out.println(e.getMessage()); }
+                System.out.println(e.getMessage());
+            }
 //            } catch (NumberFormatException e) {
 //                System.out.println("Invalid input. Volt must be a number.");
 //            }
         }
-        return id;
-    }
 
-    public void setId(String id) throws IDException {
-        if (id.charAt(0) != 'N' || id.charAt(1) != 'V' || id.length() > 6) {
-            throw new IDException();
-        }
-        int temp = Integer.parseInt(id.substring(2));
-        if (temp < 1000 || temp > 9999) {
-            throw new IDException();
-        }
-        this.id = id;
     }
 
     public String getName() {
-        Scanner scanner = new Scanner(System.in);
-        String inputName;
-          while (true) {
-            try {
-                System.out.print("--Please enter name: ");
-                inputName = scanner.nextLine();
-                setName(inputName);
-                break;
-            } catch (EmptyException e1) {
-                System.out.println(e1.getMessage()); }
-          }
         return name;
     }
 
-    public void setName(String name) throws EmptyException {
-        if (name.length() == 0) {
-            throw new EmptyException();
+    public void setName(String name) {
+        while (true) {
+            try {
+                System.out.print("--Please enter name: ");
+                name = scanner.nextLine();
+                this.name = name;
+                if (name.length() == 0) {
+                    throw new EmptyException();
+                } break;
+            } catch (EmptyException e) {
+                System.out.println(e.getMessage());
+            }
+
         }
-        this.name = name;
     }
 
     public double getSalary() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("--Please enter salary: ");
-        setSalary(scanner.nextInt());
-        while (salary < 100) {
-            System.out.println("--------Erorr! Please salary again (Salary > 100 USD):");
-            setSalary(scanner.nextInt());
-        }
         return salary;
     }
 
     public void setSalary(double salary) {
-        this.salary = salary;
+        System.out.print("--Please enter salary: ");
+        salary = scanner.nextInt();
+        while (salary < 100) {
+            System.out.println("--------Erorr! Please salary again (Salary > 100 USD):");
+            salary = scanner.nextInt();
+           
+        }
+         this.salary = salary;
     }
 
     public double getCOE() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("--Please enter coefficients salary: ");
-        setCOE(scanner.nextDouble());
-        while (COE < 1 || COE >5) {
-            System.out.println("--------Erorr! Please coefficients salary again (From 1 to 5): ");
-            setCOE(scanner.nextDouble());
-        }
         return COE;
     }
 
     public void setCOE(double COE) {
-        this.COE = COE;
+        System.out.print("--Please enter coefficients salary: ");
+        COE = scanner.nextDouble();
+        while (COE < 1 || COE > 5) {
+            System.out.println("--------Erorr! Please coefficients salary again (From 1 to 5): ");
+            COE = scanner.nextDouble();
+       
+        }
+             this.COE = COE;
+    }
+    public void input() {
+        setId(id);
+        setName(name);
+        setSalary(salary);
+        setCOE(COE);
     }
 
-    public void input() {
-        getId();
-        getName();
-        getSalary();
-        getCOE();
+    public void output() {
+        System.out.println("|" + getId() + "\t| " + getName() + "\t\t|" + getSalary() + "\t" + getCOE());
     }
 }
