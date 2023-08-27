@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author ADMIN
  */
-public class Employee {
+public class Employee extends V01 {
     Scanner scanner = new Scanner(System.in);
     private String id;
     private String name;
@@ -22,10 +22,10 @@ public class Employee {
     }
 
     public Employee(String id, String name, double salary, double COE) {
-        this.id = id;
-        this.name = name;
-        this.salary = salary;
-        this.COE = COE;
+        this.id = "";
+        this.name = "";
+        this.salary = 0;
+        this.COE = 0;
     }
 
     public String getId() {
@@ -34,26 +34,24 @@ public class Employee {
 
     public void setId(String id) {
             while (true) {
-            try {
-                System.out.print("--Please enter id number: ");
-                id = scanner.nextLine();
+            try { 
                 this.id = id;
                 if (id.charAt(0) != 'N' || id.charAt(1) != 'V' || id.length() > 6) {
                     throw new IDException();
                 }
                 int temp = Integer.parseInt(id.substring(2));
-                if (temp < 1000 || temp > 9999) {
+                if (temp < 0 || temp > 9999 || id.substring(2).length()<4) {
                     throw new IDException();
                 }
                 break;
             } catch (IDException e) {
                 System.out.println(e.getMessage());
+                id = scanner.nextLine();
             }
 //            } catch (NumberFormatException e) {
 //                System.out.println("Invalid input. Volt must be a number.");
 //            }
         }
-
     }
 
     public String getName() {
@@ -63,14 +61,13 @@ public class Employee {
     public void setName(String name) {
         while (true) {
             try {
-                System.out.print("--Please enter name: ");
-                name = scanner.nextLine();
                 this.name = name;
                 if (name.length() == 0) {
                     throw new EmptyException();
                 } break;
             } catch (EmptyException e) {
                 System.out.println(e.getMessage());
+                name = scanner.nextLine();
             }
 
         }
@@ -81,8 +78,7 @@ public class Employee {
     }
 
     public void setSalary(double salary) {
-        System.out.print("--Please enter salary: ");
-        salary = scanner.nextInt();
+        this.salary = salary;
         while (salary < 100) {
             System.out.println("--------Erorr! Please salary again (Salary > 100 USD):");
             salary = scanner.nextInt();
@@ -96,8 +92,7 @@ public class Employee {
     }
 
     public void setCOE(double COE) {
-        System.out.print("--Please enter coefficients salary: ");
-        COE = scanner.nextDouble();
+        this.COE = COE;
         while (COE < 1 || COE > 5) {
             System.out.println("--------Erorr! Please coefficients salary again (From 1 to 5): ");
             COE = scanner.nextDouble();
@@ -105,14 +100,24 @@ public class Employee {
         }
              this.COE = COE;
     }
+
     public void input() {
-        setId(id);
-        setName(name);
-        setSalary(salary);
-        setCOE(COE);
+        System.out.print("--Please enter id number: ");
+        setId(scanner.nextLine());
+        getId();
+        System.out.print("--Please enter name: ");
+        setName(scanner.nextLine());
+        getName();
+        System.out.print("--Please enter salary: ");
+        setSalary(scanner.nextDouble());
+        getName();
+        System.out.print("--Please enter coefficients salary: ");
+        setCOE(scanner.nextDouble());
+        getCOE();
     }
 
     public void output() {
-        System.out.println("|" + getId() + "\t| " + getName() + "\t\t|" + getSalary() + "\t" + getCOE());
+        System.out.println("|" + getId() + "\t| " + getName() + "\t\t|" + getSalary() + "\t|" + getCOE());
     }
 }
+
