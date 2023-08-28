@@ -16,6 +16,7 @@ public class V01 {
     /**
      * @param args the command line arguments
      */
+    ArrayList<Employee> employees = new ArrayList();
     public static void main(String[] args) {
         V01 fuckYou = new V01();
         fuckYou.Menu();
@@ -24,7 +25,6 @@ public class V01 {
 
     public void Menu() {
         Scanner scanner = new Scanner(System.in);
-        V01 fuckYou = new V01();
         int choice = 1;
         while (choice != 0) {
             System.out.println("----------MENU----------");
@@ -36,7 +36,7 @@ public class V01 {
                 choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
-                        fuckYou.Add();
+                        Add();
                         break;
                     case 2:
                         Show();
@@ -55,7 +55,6 @@ public class V01 {
     }
 
     public void Add() {
-        ArrayList<Employee> employees = new ArrayList();
         Scanner scanner = new Scanner(System.in);
         System.out.print("+Enter number of Employee: ");
         int number;
