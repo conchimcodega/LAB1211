@@ -58,18 +58,20 @@ public class V01 {
         Scanner scanner = new Scanner(System.in);
         System.out.print("+Enter number of Employee: ");
         int number;
-        number = scanner.nextInt();
+        try{
+            number = scanner.nextInt();
+        }catch(NumberFormatException){
+            System.out.println("Please enter a number!!!!");
+            number = scanner.nextInt();
+        }
+        
         for (int i = 0; i < number; i++) {
             System.out.println("-Employee " + (i+1));
             Employee employee = new Employee();
             employee.input();
             employees.add(employee);
-          //  System.out.println("Employe created and added to the list of toys successfully!");
-        }
-       
+        } 
     }
-}
-
     public void show(){
 	    System.out.println("===================List Employee===================");
 	    System.out.printf("|%-10s|%-10s|%-10s|%-10s\n", "ID", "Name", "Salary", "COE");
